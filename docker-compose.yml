@@ -7,6 +7,10 @@ services:
     ports:
       - "8889:8888"
     restart: unless-stopped
+    networks:
+      - stock-network
+    environment:
+      - TZ=Asia/Shanghai
 
   frontend:
     build: ./frontend
@@ -15,4 +19,13 @@ services:
       - "8888:8888"
     depends_on:
       - backend
-    restart: unless-stopped 
+    restart: unless-stopped
+    networks:
+      - stock-network
+    environment:
+      - TZ=Asia/Shanghai
+      - NODE_ENV=production
+
+networks:
+  stock-network:
+    driver: bridge 
