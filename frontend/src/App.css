@@ -1,0 +1,26 @@
+.layout {
+  min-height: 100vh;
+}
+
+.ant-layout-header {
+  background: #fff !important;
+  padding: 0 50px !important;
+}
+
+.ant-layout-content {
+  padding: 0 50px;
+}
+
+.site-layout-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+}
+
+.ant-list-item p {
+  margin-bottom: 4px;
+}
+
+.ant-list-item:last-child p {
+  margin-bottom: 0;
+} 
