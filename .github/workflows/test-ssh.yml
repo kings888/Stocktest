@@ -1,0 +1,40 @@
+name: Test SSH Connection
+
+on:
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  test-ssh:
+    runs-on: ubuntu-latest
+    environment: test    # 改为 test 环境
+    steps:
+      - name: Debug Secret Availability
+        run: |
+          if [ -n "${{ secrets.SERVER_HOST }}" ]; then
+            echo "SERVER_HOST is set"
+          else
+            echo "SERVER_HOST is NOT set"
+          fi
+          if [ -n "${{ secrets.SERVER_USERNAME }}" ]; then
+            echo "SERVER_USERNAME is set"
+          else
+            echo "SERVER_USERNAME is NOT set"
+          fi
+          if [ -n "${{ secrets.SERVER_SSH_KEY }}" ]; then
+            echo "SERVER_SSH_KEY is set"
+          else
+            echo "SERVER_SSH_KEY is NOT set"
+          fi
+
+      - name: Test SSH Connection
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          debug: true
+          script: |
+            echo "SSH connection successful!"
+            pwd
+            whoami
+            ls -la 
